@@ -40,7 +40,7 @@ pipeline {
                 dir('/home/ubuntu/docker-projects/Jenkins/'){
                 script {
                     // Run the Docker container
-                    sh 'docker build . -t myflaskapp:0.1'
+                    sh 'docker build . -t myflaskapp:latest'
                 }
                 }
                 // Confirming that the image is built
@@ -50,12 +50,11 @@ pipeline {
                 stage('Stop Previous Container'){
                 steps{
                     script {
-			echo "envTemp is ${env.TEMP}"
                         if (env.TEMP) {
-		 	sh "docker stop ${env.TEMP}"  
+		 		sh "docker stop ${env.TEMP}"  
 			
                         } else {
-                 	echo 'Port 5000 is not used'        
+                 		echo 'Port 5000 is not used'        
                     }
             }
         }
@@ -63,7 +62,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                     // Run the Docker container
-                    sh 'docker run -d -p 80:5000 myflaskapp:0.1'
+                    sh 'docker run -d -p 80:5000 myflaskapp:latest'
 
                 // Confirming that the container is running
                        sh 'docker ps'

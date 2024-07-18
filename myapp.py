@@ -21,5 +21,10 @@ def hello_name(name):
 
    return render_template('hello.html', name=name, count=count)
 
+@app.route('/bye')
+
+def bye():
+    return render_template('bye.html')
+
 if __name__ == '__main__':
    app.run(host ='0.0.0.0', debug = True)
