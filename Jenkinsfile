@@ -31,6 +31,7 @@ pipeline {
                 script {
                     // Run the Docker container
                     sh 'docker build . -t myflaskapp:0.1'
+		    env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
                 }
                 }
                 // Confirming that the image is built
@@ -38,9 +39,13 @@ pipeline {
             }
         }
                 stage('Build Stop Previous Container') {
+		when {
+			allOf {
+				expression { env.TEMP != null }
+}
+}
             	steps{
             		script {
-                		env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
                 		env.NAME = readJSON(text: '${env.TEMP}').Names
             		}
 		sh 'docker stop ${env.NAME}'
