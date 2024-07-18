@@ -5,7 +5,8 @@ app = Flask(__name__)
 def hello():
    return render_template('index.html')
 
-@app.route('/helloo/<name>')
+@app.route('/hello/<name>')
+
 def hello_name(name):
    # Load current count
    f = open("count.txt", "r")
