@@ -31,7 +31,7 @@ pipeline {
                 script {
                     // Run the Docker container
                     sh 'docker build . -t myflaskapp:0.1'
-		    env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
+		    TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
                 }
                 }
                 // Confirming that the image is built
