@@ -20,18 +20,18 @@ pipeline {
        TEMP = sh (
             script: "docker ps --filter 'expose=5000' --quiet",
             returnStatus: true
-        ).trim()
+        )
     }
 
     stages {
-        stage('Checkout Code') {
+        /*stage('Checkout Code') {
                 steps {
                 checkout scmGit(
                     branches: [[name: 'master']],
                     userRemoteConfigs: [[credentialsId: 'dbce9fc0-ae78-442f-b238-461816314ae3',
                     url: 'https://github.com/mrdav/MyFlaskApp.git']])
                 }
-}
+}*/
         stage('Build Docker Image') {
             steps {
                 dir('/home/ubuntu/docker-projects/Jenkins/'){
@@ -50,7 +50,7 @@ pipeline {
                 steps{
                     script {
                         if (env.TEMP != null) {
-                            sh 'docker stop ${TEMP}'
+                            sh ("docker stop ${TEMP}")
                         } else {
                             echo 'Port 5000 is not used'
                     }
