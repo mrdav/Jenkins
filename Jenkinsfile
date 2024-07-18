@@ -20,7 +20,7 @@ pipeline {
        TEMP = sh (
             script: "docker ps --filter 'expose=5000' --quiet",
             returnStatus: true
-        )
+        ).trim()
     }
 
     stages {
@@ -50,7 +50,7 @@ pipeline {
                 steps{
                     script {
                         if (env.TEMP != null) {
-                            sh 'docker container stop ${TEMP}'
+                            sh 'docker stop ${TEMP}'
                         } else {
                             echo 'Port 5000 is not used'
                     }
