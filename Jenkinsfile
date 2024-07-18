@@ -28,10 +28,12 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 dir('/home/ubuntu/docker-projects/Jenkins/'){
+		environment {
+			env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
+			}
                 script {
                     // Run the Docker container
                     sh 'docker build . -t myflaskapp:0.1'
-		    TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
                 }
                 }
                 // Confirming that the image is built
