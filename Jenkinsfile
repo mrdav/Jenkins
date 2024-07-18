@@ -41,7 +41,7 @@ pipeline {
             	steps{
             		script {
                 		env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
-                		env.NAME = readJSON(text: {env.TEMP}).Names
+                		env.NAME = readJSON(text: '${env.TEMP}').Names
             		}
 		sh 'docker stop ${env.NAME}'
             }
