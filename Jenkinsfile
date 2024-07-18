@@ -17,6 +17,14 @@ pipeline {
     agent any
     
     stages {
+	stage('Checkout Code') {
+		steps {
+		checkout scmGit(
+		    branches: [[name: 'master']],
+    		    userRemoteConfigs: [[credentialsId: 'dbce9fc0-ae78-442f-b238-461816314ae3',
+		    url: 'https://github.com/mrdav/MyFlaskApp.git']])
+		}
+}
         stage('Build Docker Image') {
             steps {
                 dir('/home/ubuntu/docker-projects/Jenkins/'){
