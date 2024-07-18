@@ -16,7 +16,7 @@
 pipeline {
     agent any
                     environment {
-                        env.TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
+                        TEMP = sh(returnStdout: true, script: 'docker ps --format "json" | grep 80').trim()
                         }
     stages {
 	stage('Checkout Code') {
