@@ -16,13 +16,17 @@
 pipeline {
     agent any
 
-    environment {
-       TEMP = sh (
-            script: "docker ps --filter 'expose=5000' --quiet",
-            returnStatus: true
-        )
-    }
-
+        stages {
+        stage('Set Environment Variable') {
+            steps {
+                script {
+                    env.TEMP = sh (
+                        script: "docker ps --filter 'expose=5000' --quiet",
+                        returnStdout: true
+                    ).trim()
+                }
+            }
+        }
     stages {
         /*stage('Checkout Code') {
                 steps {
