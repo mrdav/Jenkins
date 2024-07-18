@@ -45,7 +45,7 @@ pipeline {
             		}
 		sh 'docker stop ${env.NAME}'
             }
-        
+        }
         stage('Run Docker Container') {
             steps {
                     // Run the Docker container
