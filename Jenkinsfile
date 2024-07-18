@@ -45,14 +45,12 @@ pipeline {
             }
         }
                 stage('Stop Previous Container'){
-
-
                 steps{
                     script {
-                        if (env.TEMP != null) {
-                            sh ("docker stop ${TEMP}")
+                        if (env.TEMP == null) {
+			  echo 'Port 5000 is not used'	
                         } else {
-                            echo 'Port 5000 is not used'
+                           sh ("docker stop ${TEMP}")
                     }
             }
         }
